@@ -55,6 +55,15 @@ class App extends React.Component {
         this.setState({ fishes });
     }
 
+    deleteFish = key => {
+        // take a copy of state
+        const fishes = { ...this.state.fishes};
+        // update the state
+        fishes[key] = null;
+        // update state
+        this.setState({ fishes });
+    }
+
     loadSampleFishes = () => {
         this.setState({ fishes: sampleFishes });
     };
@@ -67,6 +76,15 @@ class App extends React.Component {
         // call setState to update out state object
         this.setState({ order });
     }
+
+    removeFromOrder = key => {
+        // take a copy of state
+        const order = { ...this.state.order }
+        // remove from order (since no firebase can use delete)
+        delete order[key];
+        // call setState to update out state object
+        this.setState({ order });
+    }    
 
      render() {
          return (
@@ -83,10 +101,15 @@ class App extends React.Component {
                         ))}
                     </ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order} />
+                <Order 
+                    fishes={this.state.fishes} 
+                    order={this.state.order}
+                    removeFromOrder={this.removeFromOrder}
+                />
                 <Inventory 
                     addFish={this.addFish}
                     updateFish={this.updateFish}
+                    deleteFish={this.deleteFish}
                     loadSampleFishes={this.loadSampleFishes} 
                     fishes={this.state.fishes}
                 />

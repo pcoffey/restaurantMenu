@@ -45,6 +45,16 @@ class App extends React.Component {
         //set new fishes object to state
         this.setState({ fishes });
     };
+
+    updateFish = (key, updatedFish) => {
+        // take copy of surrent satte
+        const fishes = { ...this.state.fishes };
+        // update that state
+        fishes[key] = updatedFish;
+        // set that to state
+        this.setState({ fishes });
+    }
+
     loadSampleFishes = () => {
         this.setState({ fishes: sampleFishes });
     };
@@ -76,7 +86,9 @@ class App extends React.Component {
                 <Order fishes={this.state.fishes} order={this.state.order} />
                 <Inventory 
                     addFish={this.addFish}
+                    updateFish={this.updateFish}
                     loadSampleFishes={this.loadSampleFishes} 
+                    fishes={this.state.fishes}
                 />
              </div>
          );
